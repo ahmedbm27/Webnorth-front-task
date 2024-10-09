@@ -7,8 +7,8 @@
 {% endcomment %}
 
 {% liquid 
-  assign breakpoint_desktop= section.settings.breakpoint_desktop | default: settings.breakpoint_desktop | default: 1280
-  assign breakpoint_tablet= section.settings.breakpoint_tablet | default: settings.breakpoint_tablet | default: 768
+  assign breakpoint_desktop = section.settings.breakpoint_desktop | default: settings.breakpoint_desktop | default: 1280
+  assign breakpoint_tablet = section.settings.breakpoint_tablet | default: settings.breakpoint_tablet | default: 768
 %}
 
 {% style %}
@@ -288,19 +288,19 @@
       "content": "Max Width"
     },
     {
-      "type": "text",
+      "type": "number",
       "id": "max_width_mobile",
       "label": "Section Max Width Mobile (px)",
       "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
     },
     {
-      "type": "text",
+      "type": "number",
       "id": "max_width_tablet",
       "label": "Section Max Width Tablet (px)",
       "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
     },
     {
-      "type": "text",
+      "type": "number",
       "id": "max_width_desktop",
       "label": "Section Max Width Desktop (px)",
       "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
