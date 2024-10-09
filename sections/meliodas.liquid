@@ -6,9 +6,10 @@
   ******************************************
 {% endcomment %}
 
-{% liquid 
+{% liquid
   assign breakpoint_desktop = section.settings.breakpoint_desktop | default: settings.breakpoint_desktop | default: 1280
   assign breakpoint_tablet = section.settings.breakpoint_tablet | default: settings.breakpoint_tablet | default: 768
+  assign products_list = section.blocks | where: 'type', 'products-list' | first
 %}
 
 {% style %}
@@ -19,7 +20,7 @@
     --padding-bottom: {{ section.settings.padding_bottom_mobile | default: 0 }}px;
     --padding-left: {{ section.settings.padding_left_mobile | default: 0 }}px;
     --padding-right: {{ section.settings.padding_right_mobile | default: 0 }}px;
-    
+
     margin: var(--margin-top) auto var(--margin-bottom);
     padding: var(--padding-top) var(--padding-right) var(--padding-bottom) var(--padding-left);
     isolation: isolate;
@@ -79,6 +80,13 @@
               breakpoint_desktop: breakpoint_desktop,
               breakpoint_tablet: breakpoint_tablet,
               content: content
+          endif
+        when 'products-list'
+          if block.settings.collection.products
+            render 'meliodas_products_list',
+              block: block,
+              breakpoint_desktop: breakpoint_desktop,
+              breakpoint_tablet: breakpoint_tablet
           endif
       endcase
     endfor
