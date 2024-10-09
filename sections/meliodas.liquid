@@ -75,18 +75,11 @@
             assign content = products_list.settings.collection.title
           endif
           if content != '' and content
-            render 'text-custom',
-              block: block,
-              breakpoint_desktop: breakpoint_desktop,
-              breakpoint_tablet: breakpoint_tablet,
-              content: content
+            render 'text-custom', block: block, breakpoint_desktop: breakpoint_desktop, breakpoint_tablet: breakpoint_tablet, content: content
           endif
         when 'products-list'
           if block.settings.collection.products
-            render 'meliodas_products_list',
-              block: block,
-              breakpoint_desktop: breakpoint_desktop,
-              breakpoint_tablet: breakpoint_tablet
+            render 'meliodas_products_list', block: block, breakpoint_desktop: breakpoint_desktop, breakpoint_tablet: breakpoint_tablet
           endif
       endcase
     endfor
