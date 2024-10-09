@@ -1,0 +1,550 @@
+{% comment %}
+  ******************************************
+    Author: Ahmed Ben Mahmoud
+      Info:
+      Params:
+        breakpoint_tablet: (int): breakpoint for tablet devices
+        breakpoint_desktop: (int): breakpoint for desktop devices
+        content: custom content
+        block: {object} block object
+  ******************************************
+{% endcomment %}
+
+{% style %}
+  #shopify-block-{{ block.id }}{
+    --font-family: {{ block.settings.font_face.family | default: block.settings.font_face.fallback_families }};
+    --font-style: {{ block.settings.font_face.style | default: 'inherit' }};
+    --font-weight: {{ block.settings.font_face.weight | default: 'inherit' }};
+    --font-size: {{ block.settings.font_size_mobile }}px;
+    --line-height: {{ block.settings.line_height_mobile }}%;
+    --color: {{ block.settings.text_color_mobile }};
+    --text-align: {{ block.settings.text_alignment_mobile }};
+    --margin-bottom: {{ block.settings.margin_bottom_mobile }}px;
+    --padding: {{ block.settings.padding_top_mobile }}px {{ block.settings.padding_right_mobile }}px {{ block.settings.padding_bottom_mobile }}px {{ block.settings.padding_left_mobile }}px;
+    --align-items: {{ block.settings.block_alignment_mobile }};
+    --content-max-width: {% unless block.settings.max_width_mobile == 0 %}{{ block.settings.max_width_mobile }}px{% else %}unset{% endunless %};
+
+    font-family: var(--font-family);
+    font-style: var(--font-style);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    line-height: var(--line-height);
+    color: var(--color);
+    text-align: var(--text-align);
+    margin-bottom: var(--margin-bottom);
+    padding: var(--padding);
+    align-items: var(--align-items);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  #shopify-block-{{ block.id }} h2{
+    font-family: inherit;
+    font-style: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-align: inherit;
+    color: inherit;
+    margin: 0;
+    margin: 0;
+    max-width: var(--content-max-width);
+  }
+  @media all and (min-width: {{ breakpoint_tablet }}px){
+    #shopify-block-{{ block.id }}{
+      --font-size: {{ block.settings.font_size_tablet }}px;
+      --line-height: {{ block.settings.line_height_tablet }}%;
+      --color: {{ block.settings.text_color_tablet }};
+      --text-align: {{ block.settings.text_alignment_tablet }};
+      --margin-bottom: {{ block.settings.margin_bottom_tablet }}px;
+      --padding: {{ block.settings.padding_top_tablet }}px {{ block.settings.padding_right_tablet }}px {{ block.settings.padding_bottom_tablet }}px {{ block.settings.padding_left_tablet }}px;
+      --align-items:{{ block.settings.block_alignment_tablet }};
+      --content-max-width: {% unless block.settings.max_width_tablet == 0 %}{{ block.settings.max_width_tablet }}px{% else %}unset{% endunless %};
+    }
+  }
+  @media all and (min-width: {{ breakpoint_desktop }}px){
+    #shopify-block-{{ block.id }}{
+      --font-size: {{ block.settings.font_size_desktop }}px;
+      --line-height: {{ block.settings.line_height_desktop }}%;
+      --color: {{ block.settings.text_color_desktop }};
+      --text-align: {{ block.settings.text_alignment_desktop }};
+      --margin-bottom:{{ block.settings.margin_bottom_desktop }}px;
+      --padding: {{ block.settings.padding_top_desktop }}px {{ block.settings.padding_right_desktop }}px {{ block.settings.padding_bottom_desktop }}px {{ block.settings.padding_left_desktop }}px;
+      --align-items:{{ block.settings.block_alignment_desktop }};
+      --content-max-width: {% unless block.settings.max_width_desktop == 0 %}{{ block.settings.max_width_desktop }}px{% else %}unset{% endunless %};
+    }
+  }
+{% endstyle %}
+
+<div
+  id="shopify-block-{{ block.id }}"
+  class="text-block {{ block.settings.class | default: class }}"
+  {{ block.shopify_attributes }}
+>
+  <h2>{{ content }}</h2>
+</div>
+
+
+{% comment %}
+  ? Needs to be present in the blocks section.
+
+  "blocks":[
+    .
+    .
+    {
+      "type": "title",
+      "name": "Title",
+      "settings": [
+        {
+          "type": "header",
+          "content": "General"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "header",
+          "content": "Typography"
+        },
+        {
+          "type": "font_picker",
+          "id": "font_face",
+          "label": "Font",
+          "default": "lato_n4"
+        },
+        {
+          "type": "header",
+          "content": "Font size & Line height Mobile"
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "line_height_mobile",
+          "min": 90,
+          "max": 190,
+          "step": 1,
+          "unit": "%",
+          "label": "Line height",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "Font size & Line height Tablet"
+        },
+        {
+          "type": "range",
+          "id": "font_size_tablet",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "line_height_tablet",
+          "min": 90,
+          "max": 190,
+          "step": 1,
+          "unit": "%",
+          "label": "Line height",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "Font size & Line height Desktop"
+        },
+        {
+          "type": "range",
+          "id": "font_size_desktop",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "line_height_desktop",
+          "min": 90,
+          "max": 190,
+          "step": 1,
+          "unit": "%",
+          "label": "Line height",
+          "default": 150
+        },
+        {
+          "type": "header",
+          "content": "block alignment"
+        },
+        {
+          "type": "select",
+          "id": "block_alignment_mobile",
+          "label": "Block Alignment Mobile",
+          "options": [
+            {
+              "value": "flex-start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "flex-end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "block_alignment_tablet",
+          "label": "Block Alignment Tablet",
+          "options": [
+            {
+              "value": "flex-start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "flex-end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "block_alignment_desktop",
+          "label": "Block Alignment Desktop",
+          "options": [
+            {
+              "value": "flex-start",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "flex-end",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Text Align"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_mobile",
+          "label": "Text Alignment Mobile",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_tablet",
+          "label": "Text Alignment Tablet",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment_desktop",
+          "label": "Text Alignment Desktop",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "header",
+          "content": "Design"
+        },
+        {
+          "type": "color",
+          "id": "text_color_mobile",
+          "label": "Text Color Mobile",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color_tablet",
+          "label": "Text Color Tablet",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color_desktop",
+          "label": "Text Color Desktop",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Spacing Mobile"
+        },
+        {
+          "type": "paragraph",
+          "content": "Margins"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Margin Bottom",
+          "default": 0
+        },
+        {
+          "type": "paragraph",
+          "content": "Padding"
+        },
+        {
+          "type": "range",
+          "id": "padding_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Top",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Bottom",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_left_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Left",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_right_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Right",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Spacing Tablet"
+        },
+        {
+          "type": "paragraph",
+          "content": "Margins"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Margin Bottom",
+          "default": 0
+        },
+        {
+          "type": "paragraph",
+          "content": "Padding"
+        },
+        {
+          "type": "range",
+          "id": "padding_top_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Top",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Bottom",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_left_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Left",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_right_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Right",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Spacing Desktop"
+        },
+        {
+          "type": "paragraph",
+          "content": "Margins"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Margin Bottom",
+          "default": 0
+        },
+        {
+          "type": "paragraph",
+          "content": "Padding"
+        },
+        {
+          "type": "range",
+          "id": "padding_top_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Top",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Bottom",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_left_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Left",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding_right_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "Padding Right",
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Max Width"
+        },
+        {
+          "type": "number",
+          "id": "max_width_mobile",
+          "label": "Max Width Mobile (px)"
+        },
+        {
+          "type": "number",
+          "id": "max_width_tablet",
+          "label": "Max Width Tablet (px)"
+        },
+        {
+          "type": "number",
+          "id": "max_width_desktop",
+          "label": "Max Width Desktop (px)"
+        }
+      ]
+    }
+    .
+    .
+  ]
+{% endcomment %}
