@@ -1,0 +1,30 @@
+{% comment %}
+******************************************
+
+  Author: Ahmed Ben Mahmoud
+    Info:
+      Import all the fonts required by the section.
+      For this to properly work the settings ids must contain the following:
+        - font_face: For shopify fonts
+
+******************************************
+{% endcomment %}
+
+{% assign font_display = font_display | default: 'swap' %}
+{% for setting in section.settings %}
+  {% if section.settings[setting] != empty and setting contains 'font_face' %}
+      {% style %}
+        {{ section.settings[setting] | font_face: font_display: font_display }}
+      {% endstyle %}
+  {% endif %}
+{% endfor %}
+
+{% for block in section.blocks %}
+  {% for setting in block.settings %}
+    {% if block.settings[setting] != empty and setting contains 'font_face' %}
+        {% style %}
+          {{ block.settings[setting] | font_face: font_display: font_display }}
+        {% endstyle %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
