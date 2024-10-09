@@ -5,3 +5,281 @@
         This section displays a list of selected products/categories in different layouts.
   ******************************************
 {% endcomment %}
+
+{% schema %}
+{
+  "name": "Products List",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Section created by Ahmed Ben Mahmoud. Please request developer for efficient & fast modifications."
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "header",
+      "content": "Margin Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Margin Tablet"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Margin Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding Mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding Tablet"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding Desktop"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Right",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Max Width"
+    },
+    {
+      "type": "text",
+      "id": "max_width_mobile",
+      "label": "Section Max Width Mobile (px)",
+      "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
+    },
+    {
+      "type": "text",
+      "id": "max_width_tablet",
+      "label": "Section Max Width Tablet (px)",
+      "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
+    },
+    {
+      "type": "text",
+      "id": "max_width_desktop",
+      "label": "Section Max Width Desktop (px)",
+      "info": "If this setting is empty or set to 0 or less, the maximum width will not be set"
+    },
+    {
+      "type": "header",
+      "content": "Breakpoints"
+    },
+    {
+      "type": "number",
+      "id": "breakpoint_tablet",
+      "label": "Tablet Breakpoint (px)",
+      "placeholder": "768"
+    },
+    {
+      "type": "number",
+      "id": "breakpoint_desktop",
+      "label": "Desktop Breakpoint (px)",
+      "placeholder": "1280"
+    }
+  ],
+  "blocks": [
+  ],
+  "presets": [
+    {
+      "name": "WebNorth : Product List Section",
+      "settings": {},
+      "blocks": []
+    },
+    {
+      "name": "Product List 2-column Layout",
+      "settings": {},
+      "blocks": []
+    },
+    {
+      "name": "Product List 3-column Layout",
+      "settings": {},
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
