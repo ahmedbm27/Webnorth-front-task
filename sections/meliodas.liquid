@@ -6,6 +6,66 @@
   ******************************************
 {% endcomment %}
 
+{% liquid 
+  assign breakpoint_desktop= section.settings.breakpoint_desktop | default: settings.breakpoint_desktop | default: 1280
+  assign breakpoint_tablet= section.settings.breakpoint_tablet | default: settings.breakpoint_tablet | default: 768
+%}
+
+{% style %}
+  #shopify-section-{{ section.id }}{
+    --margin-top: {{ section.settings.margin_top_mobile | default: 0 }}px;
+    --margin-bottom: {{ section.settings.margin_bottom_mobile | default: 0 }}px;
+    --padding-top: {{ section.settings.padding_top_mobile | default: 0 }}px;
+    --padding-bottom: {{ section.settings.padding_bottom_mobile | default: 0 }}px;
+    --padding-left: {{ section.settings.padding_left_mobile | default: 0 }}px;
+    --padding-right: {{ section.settings.padding_right_mobile | default: 0 }}px;
+    
+    margin: var(--margin-top) auto var(--margin-bottom);
+    padding: var(--padding-top) var(--padding-right) var(--padding-bottom) var(--padding-left);
+    isolation: isolate;
+  }
+  #shopify-subsection-{{ section.id }}{
+    --max-width: {% if section.settings.max_width_mobile > 0 %}{{ section.settings.max_width_mobile | default: breakpoint_tablet }}px {% else %} unset {% endif %};
+
+    width: 100%;
+    max-width: var(--max-width);
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+  @media all and (min-width: {{ breakpoint_tablet }}px){
+    #shopify-section-{{ section.id }}{
+      --margin-top: {{ section.settings.margin_top_tablet | default: 0 }}px;
+      --margin-bottom: {{ section.settings.margin_bottom_tablet | default: 0 }}px;
+      --padding-top: {{ section.settings.padding_top_tablet | default: 0 }}px;
+      --padding-bottom: {{ section.settings.padding_bottom_tablet | default: 0 }}px;
+      --padding-left: {{ section.settings.padding_left_tablet | default: 0 }}px;
+      --padding-right: {{ section.settings.padding_right_tablet | default: 0 }}px;
+    }
+    #shopify-subsection-{{ section.id }}{
+      --max-width: {% if section.settings.max_width_tablet > 0 %}{{ section.settings.max_width_tablet | default: breakpoint_desktop }}px {% else %} unset {% endif %};
+    }
+  }
+
+  @media all and (min-width: {{ breakpoint_desktop }}px){
+    #shopify-section-{{ section.id }}{
+      --margin-top: {{ section.settings.margin_top_desktop | default: 0 }}px;
+      --margin-bottom: {{ section.settings.margin_bottom_desktop | default: 0 }}px;
+      --padding-top: {{ section.settings.padding_top_desktop | default: 0 }}px;
+      --padding-bottom: {{ section.settings.padding_bottom_desktop | default: 0 }}px;
+      --padding-left: {{ section.settings.padding_left_desktop | default: 0 }}px;
+      --padding-right: {{ section.settings.padding_right_desktop | default: 0 }}px;
+    }
+
+    #shopify-subsection-{{ section.id }}{
+      --max-width: {% if section.settings.max_width_desktop > 0 %}{{ section.settings.max_width_desktop | default: 1920 }}px {% else %} unset {% endif %};
+    }
+  }
+{% endstyle %}
+
+<div id="shopify-subsection-{{ section.id }}">
+</div>
 {% schema %}
 {
   "name": "Products List",
