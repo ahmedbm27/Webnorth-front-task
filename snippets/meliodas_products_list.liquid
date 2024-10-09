@@ -1,0 +1,14 @@
+{% comment %}
+  ******************************************
+    Author: Ahmed Ben Mahmoud
+      Info:
+      Params:
+        breakpoint_tablet: (int): breakpoint for tablet devices
+        breakpoint_desktop: (int): breakpoint for desktop devices
+        block: {object} block object
+  ******************************************
+{% endcomment %}
+
+{% for product in  block.settings.collection.products, limit: block.settings.products_per_page %}
+
+{% endfor %}
