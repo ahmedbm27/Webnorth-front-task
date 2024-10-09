@@ -776,6 +776,50 @@
         }
       ]
     },
+    {
+      "type": "products-list",
+      "name": "Products List",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "General Settings"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Select the collection of products to be listed"
+        },
+        {
+          "type": "number",
+          "id": "products_per_page",
+          "label": "Max Number of Products to display",
+          "default": 20,
+          "info": "The maximum number of products to display by default ( pagination )"
+        },
+        {
+          "type": "select",
+          "id": "section_layout",
+          "label": "Section Layout",
+          "options": [
+            {
+              "value": "2-columns",
+              "label": "2-columns Layout"
+            },
+            {
+              "value": "3-columns",
+              "label": "3-columns Layout"
+            }
+          ],
+          "default": "2-columns"
+        },
+        {
+          "type": "header",
+          "content": "Product Cards Styling"
+        }
+      ]
+    }
   ],
   "presets": [
     {
