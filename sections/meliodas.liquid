@@ -71,8 +71,8 @@
       case block.type
         when 'title'
           assign content = block.settings.title
-          if products_list.settings.collection != null and products_list
-            assign content = products_list.settings.collection.title
+          if content == ""
+            assign content =  products_list.settings.collection.title
           endif
           if content != '' and content
             render 'text-custom', block: block, breakpoint_desktop: breakpoint_desktop, breakpoint_tablet: breakpoint_tablet, content: content
