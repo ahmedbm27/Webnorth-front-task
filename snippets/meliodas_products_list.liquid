@@ -8,7 +8,61 @@
         block: {object} block object
   ******************************************
 {% endcomment %}
-
-{% for product in  block.settings.collection.products, limit: block.settings.products_per_page %}
-
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<div id="shopify-block-{{ block.id }}">
+  {% for product in block.settings.collection.products limit: block.settings.products_per_page %}
+    <div class="product-card__container" tabindex="0">
+      <div class="product-card__image">
+        {{ product.images.first | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.images.first.alt }}
+      </div>
+      <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
+      {% render 'price', product: product, price_class: 'product-card__price', show_compare_at_price: true %}
+      <div class="product-card__description">{{ product.content }}</div>
+      <hr>
+      <div class="product-card__tags">
+        {% for tag in product.tags %}
+          <p class="product-card__tag">{{ tag }}</p>
+          {% if forloop.index == 2 and forloop.length > 2 %}
+            <p class="product-card__tag">+{{ forloop.length | minus: forloop.index }}</p>
+            {% break %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% assign product_form_id = 'product-form-{{ section.id }}-{{ product.id }}' %}
+      <product-form data-section-id="{{ section.id }}">
+        {%- form 'product',
+          product,
+          id: product_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+            {% if product.selected_or_first_available_variant.available == false
+              or quantity_rule_soldout
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+            class="product-variant-id"
+          >
+          <button
+            type="submit"
+            {% if product.selected_or_first_available_variant.available == false
+              or quantity_rule_soldout
+              or product.selected_or_first_available_variant == null
+            %}
+              disabled
+            {% endif %}
+          >
+            <p>Add to cart</p>
+            {%- render 'loading-spinner' -%}
+          </button>
+        {% endform %}
+      </product-form>
+    </div>
 {% endfor %}
+</div>
