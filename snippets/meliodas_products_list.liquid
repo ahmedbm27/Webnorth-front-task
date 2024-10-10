@@ -289,5 +289,42 @@
         {% endform %}
       </product-form>
     </div>
-{% endfor %}
+  {% endfor %}
 </div>
+
+<script>
+  // product card hover/focus
+  (() => {
+    // Select all product cards
+    const productCards = document.querySelectorAll(
+      '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
+    );
+    productCards.forEach((card) => {
+      // Function to handle focus/hover effect
+      const applyEffect = () => {
+        card.classList.add('hovered');
+        productCards.forEach((otherCard) => {
+          if (otherCard !== card) {
+            otherCard.classList.add('inactive');
+          }
+        });
+      };
+
+      // Function to remove focus/hover effect
+      const removeEffect = () => {
+        card.classList.remove('hovered');
+        productCards.forEach((otherCard) => {
+          otherCard.classList.remove('inactive');
+        });
+      };
+
+      // Add hover event listeners
+      card.addEventListener('mouseenter', applyEffect);
+      card.addEventListener('mouseleave', removeEffect);
+
+      // Add focus event listeners
+      card.addEventListener('focus', applyEffect);
+      card.addEventListener('blur', removeEffect);
+    });
+  })();
+</script>
