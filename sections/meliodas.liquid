@@ -84,7 +84,6 @@
       endcase
     endfor
   %}
-  
 </div>
 
 {% render 'utility-section-fonts' %}
@@ -826,19 +825,83 @@
           "label": "Section Layout",
           "options": [
             {
-              "value": "2-columns",
+              "value": "2",
               "label": "2-columns Layout"
             },
             {
-              "value": "3-columns",
+              "value": "3",
               "label": "3-columns Layout"
             }
           ],
-          "default": "2-columns"
+          "default": "2"
         },
         {
           "type": "header",
-          "content": "Product Cards Styling"
+          "content": "Typography"
+        },
+        {
+          "type": "font_picker",
+          "id": "font_face",
+          "label": "General Font",
+          "default": "lato_n4"
+        },
+        {
+          "type": "font_picker",
+          "id": "font_face_title",
+          "label": "Title Font",
+          "default": "lato_n4"
+        },
+        {
+          "type": "header",
+          "content": "Product Card Settings"
+        },
+        {
+          "type": "paragraph",
+          "content": "Card Border radius"
+        },
+        {
+          "type": "range",
+          "id": "card_br_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "mobile",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "card_br_tablet",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "tablet",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "card_br_desktop",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "label": "desktop",
+          "default": 0
+        },
+        {
+          "type": "paragraph",
+          "content": "Card Background Color"
+        },
+        {
+          "type": "color_background",
+          "id": "card_bg_color",
+          "label": "Card Background Color"
+        },
+        {
+          "type": "color_background",
+          "id": "card_bg_color_hover",
+          "label": "Card Background Color on hover or focus"
         }
       ]
     }
