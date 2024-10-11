@@ -235,7 +235,8 @@
 {% endstyle %}
 
 <div id="shopify-block-{{ block.id }}">
-  {% for product in block.settings.collection.products limit: block.settings.products_per_page %}
+  {% assign collection = block.settings.collection | first %}
+    {% for product in collection.products %}
     <div class="product-card__container" tabindex="0">
       <div class="product-card__image">
         {{ product.images.first | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.images.first.alt }}
