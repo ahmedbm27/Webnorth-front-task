@@ -234,8 +234,9 @@
   }
 {% endstyle %}
 
+{% assign collection = block.settings.collection | first %}
+{% paginate collection.products by block.settings.products_per_page %}
 <div id="shopify-block-{{ block.id }}">
-  {% assign collection = block.settings.collection | first %}
     {% for product in collection.products %}
     <div class="product-card__container" tabindex="0">
       <div class="product-card__image">
@@ -292,10 +293,40 @@
     </div>
   {% endfor %}
 </div>
+  {% if paginate.current_page != paginate.pages %}
+    <button class="product-card__view-more" type="button">View More</button>
+  {% endif %}
+{% endpaginate %}
 
 <script>
-  // product card hover/focus
   (() => {
+    //view more button
+    const viewMore = () =>{
+      const urlParams = new URLSearchParams(window.location.search)
+      let currentPage = urlParams.get("page") && Number(urlParams.get("page")) > 0 ? Number(urlParams.get("page")) : 1 // current pagination page
+      const numberOfPages = {{collection.products | size | times: 1.0 | divided_by: block.settings.products_per_page | ceil}};
+      
+      document.querySelector("#shopify-section-{{ section.id }} .product-card__view-more").addEventListener("click", async ()=>{
+        if(currentPage >= numberOfPages) return
+        const link = `${window.Shopify.routes.root}?page=${currentPage + 1}&section_id={{ section.id }}`
+        const html = await fetch(link)
+        .then(res => {return res.text()})
+        .then(data => {
+          const parser = new DOMParser()
+          const doc = parser.parseFromString(data, "text/html")
+          return doc
+        })
+        document.querySelector("#shopify-section-{{ section.id }} #shopify-block-{{ block.id }}").innerHTML +=  html.querySelector('#shopify-section-{{ section.id }} #shopify-block-{{ block.id }}').innerHTML
+      
+        currentPage += 1
+        if(currentPage >= numberOfPages){
+          document.querySelector("#shopify-section-{{ section.id }} .product-card__view-more").style = "display:none;"
+        }
+        removeListeners()
+        addListeners()
+      })
+    }
+
     // focus/hover functionality
     const highlight = (card,productCards, action) => {
       const method = action === "apply" ? 'add' : 'remove';
@@ -320,8 +351,22 @@
         card.addEventListener('blur', (event)=>{highlight(event.currentTarget,productCards,"remove")});
       }
     }
+    const removeListeners = () =>{
     const productCards = document.querySelectorAll(
       '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
+      )
+      for(card of productCards){
+        // hover
+        card.removeEventListener('mouseenter', (event)=>{highlight(event.currentTarget,productCards,"apply")});
+        card.removeEventListener('mouseleave', (event)=>{highlight(event.currentTarget,productCards,"remove")});
+        //focus
+        card.removeEventListener('focus', (event)=>{highlight(event.currentTarget,productCards,"apply")});
+        card.removeEventListener('blur', (event)=>{highlight(event.currentTarget,productCards,"remove")});
+      }
+    }
+
+    
+    viewMore()
     addListeners()
   })();
 </script>
