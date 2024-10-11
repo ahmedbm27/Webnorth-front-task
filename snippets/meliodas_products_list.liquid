@@ -296,36 +296,32 @@
 <script>
   // product card hover/focus
   (() => {
-    // Select all product cards
+    // focus/hover functionality
+    const highlight = (card,productCards, action) => {
+      const method = action === "apply" ? 'add' : 'remove';
+    
+      card.classList[method]('hovered');
+      productCards.forEach(otherCard => {
+        if (otherCard !== card) {
+          otherCard.classList[method]('inactive');
+        }
+      })
+    }
+    const addListeners = () =>{
+      const productCards = document.querySelectorAll(
+        '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
+      )
+      for(card of productCards){
+        // hover
+        card.addEventListener('mouseenter', (event)=>{highlight(event.currentTarget,productCards,"apply")});
+        card.addEventListener('mouseleave', (event)=>{highlight(event.currentTarget,productCards,"remove")});
+        //focus
+        card.addEventListener('focus', (event)=>{highlight(event.currentTarget,productCards,"apply")});
+        card.addEventListener('blur', (event)=>{highlight(event.currentTarget,productCards,"remove")});
+      }
+    }
     const productCards = document.querySelectorAll(
       '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
-    );
-    productCards.forEach((card) => {
-      // Function to handle focus/hover effect
-      const applyEffect = () => {
-        card.classList.add('hovered');
-        productCards.forEach((otherCard) => {
-          if (otherCard !== card) {
-            otherCard.classList.add('inactive');
-          }
-        });
-      };
-
-      // Function to remove focus/hover effect
-      const removeEffect = () => {
-        card.classList.remove('hovered');
-        productCards.forEach((otherCard) => {
-          otherCard.classList.remove('inactive');
-        });
-      };
-
-      // Add hover event listeners
-      card.addEventListener('mouseenter', applyEffect);
-      card.addEventListener('mouseleave', removeEffect);
-
-      // Add focus event listeners
-      card.addEventListener('focus', applyEffect);
-      card.addEventListener('blur', removeEffect);
-    });
+    addListeners()
   })();
 </script>
