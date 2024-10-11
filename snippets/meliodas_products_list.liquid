@@ -17,6 +17,7 @@
   #shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container {
     --border-radius: {{ block.settings.card_br_mobile }}px;
     --background-color: {{ block.settings.card_bg_color }};
+
     display: grid;
     {% if block.settings.section_layout == "2" %}
     grid-template-columns: 0.28125fr 0.72875fr;
@@ -37,6 +38,7 @@
   }
   #shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__image {
     --border-radius: {{ block.settings.card_br_mobile }}px;
+
     {% if block.settings.section_layout == "2" %}
     grid-column: 1;
     grid-row: 1/6;
@@ -212,7 +214,28 @@
     background-color: transparent;
     color: #3C3C43;
   }
+  #shopify-section-{{ section.id }} .product-card__view-more{
+    --font-family: {{ block.settings.font_face.family | default: block.settings.font_face.fallback_families }};
+    --font-style: {{ block.settings.font_face.style | default: 'inherit' }};
+    --font-weight: {{ block.settings.font_face.weight | default: 'inherit' }};
+    --padding: 8px 24px;
+    --font-size: 14px;
 
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+    padding: var(--padding);
+    display: block;
+    margin: 30px auto 0 auto;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    background-color: #3C3C43;
+    cursor: pointer;
+  }
+  #shopify-section-{{ section.id }} .product-card__view-more:hover{
+    background-color: #65656C
+  }
   @media all and (min-width: {{ breakpoint_tablet }}px){
     #shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container {
       --border-radius: {{ block.settings.card_br_tablet }}px;
@@ -222,6 +245,10 @@
     }
     #shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__image {
       --border-radius: {{ block.settings.card_br_tablet }}px;
+    }
+    #shopify-section-{{ section.id }} .product-card__view-more{
+      --padding: 8px 50px;
+      --font-size: 20px;
     }
   }
   @media all and (min-width: {{ breakpoint_desktop }}px){
@@ -236,63 +263,63 @@
 
 {% assign collection = block.settings.collection | first %}
 {% paginate collection.products by block.settings.products_per_page %}
-<div id="shopify-block-{{ block.id }}">
+  <div id="shopify-block-{{ block.id }}">
     {% for product in collection.products %}
-    <div class="product-card__container" tabindex="0">
-      <div class="product-card__image">
-        {{ product.images.first | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.images.first.alt }}
-      </div>
-      <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
-      {% render 'price', product: product, price_class: 'product-card__price', show_compare_at_price: true %}
-      <div class="product-card__description">{{ product.content }}</div>
-      <hr>
-      <div class="product-card__tags">
-        {% for tag in product.tags %}
-          <p class="product-card__tag">{{ tag }}</p>
-          {% if forloop.index == 2 and forloop.length > 2 %}
-            <p class="product-card__tag">+{{ forloop.length | minus: forloop.index }}</p>
-            {% break %}
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% assign product_form_id = 'product-form-{{ section.id }}-{{ product.id }}' %}
-      <product-form data-section-id="{{ section.id }}">
-        {%- form 'product',
-          product,
-          id: product_form_id,
-          class: 'form',
-          novalidate: 'novalidate',
-          data-type: 'add-to-cart-form'
-        -%}
-          <input
-            type="hidden"
-            name="id"
-            value="{{ product.selected_or_first_available_variant.id }}"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant == null
-            %}
-              disabled
+      <div class="product-card__container" tabindex="0">
+        <div class="product-card__image">
+          {{ product.images.first | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.images.first.alt }}
+        </div>
+        <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
+        {% render 'price', product: product, price_class: 'product-card__price', show_compare_at_price: true %}
+        <div class="product-card__description">{{ product.content }}</div>
+        <hr>
+        <div class="product-card__tags">
+          {% for tag in product.tags %}
+            <p class="product-card__tag">{{ tag }}</p>
+            {% if forloop.index == 2 and forloop.length > 2 %}
+              <p class="product-card__tag">+{{ forloop.length | minus: forloop.index }}</p>
+              {% break %}
             {% endif %}
-            class="product-variant-id"
-          >
-          <button
-            type="submit"
-            {% if product.selected_or_first_available_variant.available == false
-              or quantity_rule_soldout
-              or product.selected_or_first_available_variant == null
-            %}
-              disabled
-            {% endif %}
-          >
-            <p>Add to cart</p>
-            {%- render 'loading-spinner' -%}
-          </button>
-        {% endform %}
-      </product-form>
-    </div>
-  {% endfor %}
-</div>
+          {% endfor %}
+        </div>
+        {% assign product_form_id = 'product-form-{{ section.id }}-{{ product.id }}' %}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            product,
+            id: product_form_id,
+            class: 'form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ product.selected_or_first_available_variant.id }}"
+              {% if product.selected_or_first_available_variant.available == false
+                or quantity_rule_soldout
+                or product.selected_or_first_available_variant == null
+              %}
+                disabled
+              {% endif %}
+              class="product-variant-id"
+            >
+            <button
+              type="submit"
+              {% if product.selected_or_first_available_variant.available == false
+                or quantity_rule_soldout
+                or product.selected_or_first_available_variant == null
+              %}
+                disabled
+              {% endif %}
+            >
+              <p>Add to cart</p>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {% endform %}
+        </product-form>
+      </div>
+    {% endfor %}
+  </div>
   {% if paginate.current_page != paginate.pages %}
     <button class="product-card__view-more" type="button">View More</button>
   {% endif %}
@@ -352,8 +379,8 @@
       }
     }
     const removeListeners = () =>{
-    const productCards = document.querySelectorAll(
-      '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
+      const productCards = document.querySelectorAll(
+        '#shopify-section-{{ section.id }} #shopify-block-{{ block.id }} .product-card__container'
       )
       for(card of productCards){
         // hover
