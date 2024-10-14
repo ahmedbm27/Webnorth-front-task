@@ -103,14 +103,14 @@
               "my-collection"
             ],
             "products_per_page": 4,
-            "section_layout": "2",
+            "section_layout": "3",
             "font_face": "source_code_pro_n4",
             "font_face_title": "source_code_pro_n5",
             "card_br_mobile": 12,
             "card_br_tablet": 12,
             "card_br_desktop": 12,
             "card_bg_color": "#F8F8F8",
-            "card_bg_color_hover": "#FDDDDD"
+            "card_bg_color_hover": "#FDDD4D"
           }
         }
       },
